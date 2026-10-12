@@ -7,6 +7,7 @@ import { useAuth } from "@/lib/context/auth-context";
 import {
   LogOut,
   MapPin,
+  Smartphone,
 } from "lucide-react";
 
 export function HeaderNav() {
@@ -104,10 +105,26 @@ export function HeaderNav() {
                     <button
                       onClick={() => {
                         setIsMenuOpen(false);
+                        const isIosDevice = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+                        if (isIosDevice) {
+                          alert("لتثبيت التطبيق على الآيفون: اضغط زر المشاركة (Share) أسفل الشاشة، ثم اختر «إضافة إلى الشاشة الرئيسية» (Add to Home Screen).");
+                        } else {
+                          alert("لتثبيت التطبيق: اضغط على قائمة المتصفح (⋮ أو ⋯) ثم اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».");
+                        }
+                      }}
+                      className="w-full mt-1 flex items-center justify-end gap-2 px-3 py-2 text-xs font-bold text-[#555B3D] hover:bg-[#EDF3EA] rounded-xl transition-colors cursor-pointer text-right"
+                    >
+                      <span>تثبيت التطبيق على الشاشة</span>
+                      <Smartphone className="w-4 h-4 stroke-[2]" />
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
                         handleLogout();
                       }}
                       disabled={isLoggingOut}
-                      className="w-full mt-1.5 flex items-center justify-end gap-2 px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 rounded-xl transition-colors cursor-pointer text-right"
+                      className="w-full mt-1 flex items-center justify-end gap-2 px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 rounded-xl transition-colors cursor-pointer text-right"
                     >
                       <span>{isLoggingOut ? "جاري الخروج..." : "تسجيل الخروج"}</span>
                       <LogOut className="w-4 h-4 stroke-[2]" />
