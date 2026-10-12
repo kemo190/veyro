@@ -1,26 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light !important;
+  --font-heading: "IBM Plex Sans Arabic", system-ui, -apple-system, sans-serif;
+  --font-body: "IBM Plex Sans Arabic", system-ui, -apple-system, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html, body {
+  background-color: #141A12 !important;
+  color: #20251F !important;
+  color-scheme: light !important;
+  font-family: var(--font-body) !important;
+  direction: rtl;
+  text-align: right;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 100vh;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+h1, h2, h3, .font-heading {
+  font-family: var(--font-heading) !important;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom scrollbar and sleek interactions */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #1F293D;
+  border-radius: 9999px;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+/* Fix browser autofill from breaking input colors */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #FAF8F5 inset !important;
+  -webkit-text-fill-color: #20251F !important;
+  caret-color: #20251F !important;
+  transition: background-color 9999s ease-in-out 0s;
 }

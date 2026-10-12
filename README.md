@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# منصة Veyro — نظام توثيق وأرشفة عمليات المطاعم (PWA)
 
-## Getting Started
+منصة سحابية متقدمة متعددة المستأجرين (Multi-Tenant SaaS) مصممة خصيصاً للمطاعم ومطابخ السحاب لتوثيق، تصوير، وأرشفة تذاكر المطبخ وإيصالات الطلبات مع ربط فوري بقاعدة بيانات Supabase.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🏗️ هيكلية المشروع (Architecture)
+
+```text
+app/
+├── admin/                         # لوحة الإدارة المركزية
+│   ├── orders/                    # عرض أرشيف جميع الطلبات لجميع الفروع
+│   └── restaurants/               # إدارة الفروع والمطاعم وإضافتها
+│       ├── [id]/                  # تعديل بيانات الفرع
+│       └── new/                   # تسجيل فرع جديد
+├── dashboard/                     # اللوحة اليومية التشغيلية للكاشير / موظف المطعم
+├── login/                         # شاشة تسجيل الدخول السينمائية
+├── orders/                        # إدارة الطلبات للفرع الحالي
+│   ├── [id]/                      # تفاصيل الطلب والصور والأوقات
+│   └── new/                       # توثيق طلب جديد (التقاط تذكرة + إيصال)
+├── globals.css                    # المتغيرات اللونية وثيم Ivory & Deep Olive
+├── layout.tsx                     # الغلاف العام والتنقل العلوي والسفلي والـ PWA
+└── page.tsx                       # تحويل تلقائي إلى /dashboard
+
+components/
+├── layout/
+│   ├── HeaderNav.tsx              # الهيدر العلوي مع المنحنى العضوي وقائمة الموظف
+│   ├── MobileBottomNav.tsx        # الكبسولة الزجاجية الشفافة العائمة
+│   └── PwaInstallPrompt.tsx       # إشعار تثبيت التطبيق على الجوال
+└── ui/
+    ├── Button.tsx                 # أزرار النظام
+    ├── Card.tsx                   # البطاقات والشارات
+    ├── ImageUploadCapture.tsx     # مكون التصوير ورفع الصور للكاميرا
+    └── Input.tsx                  # الحقول النصية
+
+lib/
+├── context/
+│   └── auth-context.tsx           # إدارة حالة المستخدم، الفرع، والمزامنة السحابية
+├── supabase/
+│   ├── client.ts                  # تهيئة عميل Supabase
+│   └── service.ts                 # طبقة استدعاء البيانات (DB Layer)
+└── validation/
+    └── index.ts                   # التحقق من صحة المدخلات
+
+supabase/
+├── schema.sql                     # المخطط الكامل للجداول، الصلاحيات، و RLS
+├── fix_rls.sql                    # معالجة صلاحيات الأمان والربط
+└── seed.sql                       # بيانات أولية اختيارية للفروع
+
+public/
+├── icons/                         # أيقونات التطبيق (PWA)
+├── images/
+│   └── veyro-brand-hero.jpg       # خلفية هوية منصة Veyro الرسمية
+├── manifest.json                  # ملف تعريف تطبيق الويب التقدمي
+├── offline.html                   # صفحة العمل دون اتصال بالإنترنت
+└── sw.js                          # Service Worker للكاش والمزامنة
+
+types/
+└── index.ts                       # التعريفات البرمجية والأنواع (TypeScript)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎨 نظام التصميم (Design System)
+- **الخلفية الأساسية:** Warm Ivory (`#F6F3EB`)
+- **اللون المميز (Primary Accent):** Deep Olive (`#555B3D`)
+- **النصوص:** Deep Charcoal (`#20251F`)
+- **الهوية البصرية:** منصة مستقلة لإدارة العمليات (**Veyro**) دون الارتباط بهوية مطعم فردي.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🚀 التشغيل والتطوير المحلي
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# تثبيت الحزم
+npm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# تشغيل بيئة التطوير
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+التطبيق يعمل افتراضياً على: `http://localhost:3000`
